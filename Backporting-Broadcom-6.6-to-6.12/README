@@ -1,0 +1,21 @@
+Backport Ethernet Broadcom 6.6 to Kernel 6.12.
+Note:  This is NOT a fix for 'NETDEV WATCHDOG: CPU: 2: transmit queue 0 timed out'.
+       It is a temporary workaround to reduce the frequency of the system lockup.  On high load the Broadcom will lock up on kernel 6.12.
+
+1. Download and Extract kernel source 6.6 and 6.12
+	mkdir ~/rpi-6.6
+	mkdir ~/rpi-6.12
+
+2. From kernel source 6.12 delete the entire broadcom directory:
+	rm -fvr ~/rpi-6.12/linux/drivers/net/ethernet/broadcom
+
+3. From kernel source 6.6 copy the entire broadcom directory to kernel source 6.12:
+	cp -vR ~/rpi-6.6/linux/drivers/net/ethernet/broadcom ~/rpi-6.12/linux/drivers/net/ethernet
+
+4. Apply patches to kernel source 6.12:
+cd ~/rpi-6.12/linux
+patch -p1 < bcmgenet.patch
+patch -p1 < bcmasp.patch
+patch -p1 < bcmasp_ethtool.patch
+
+

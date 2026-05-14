@@ -1,0 +1,26 @@
+--- a/drivers/net/ethernet/broadcom/asp2/bcmasp.c
++++ b/drivers/net/ethernet/broadcom/asp2/bcmasp.c
+@@ -1345,17 +1345,15 @@
+ 	return ret;
+ }
+ 
+-static int bcmasp_remove(struct platform_device *pdev)
++static void bcmasp_remove(struct platform_device *pdev)
+ {
+-	struct bcmasp_priv *priv = dev_get_drvdata(&pdev->dev);
++    struct bcmasp_priv *priv = dev_get_drvdata(&pdev->dev);
+ 
+-	if (!priv)
+-		return 0;
++    if (!priv)
++        return;
+ 
+-	priv->destroy_wol(priv);
+-	bcmasp_remove_intfs(priv);
+-
+-	return 0;
++    priv->destroy_wol(priv);
++    bcmasp_remove_intfs(priv);
+ }
+ 
+ static void bcmasp_shutdown(struct platform_device *pdev)

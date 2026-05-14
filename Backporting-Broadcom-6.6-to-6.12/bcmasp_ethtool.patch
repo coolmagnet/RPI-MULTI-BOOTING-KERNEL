@@ -1,0 +1,29 @@
+--- a/drivers/net/ethernet/broadcom/asp2/bcmasp_ethtool.c
++++ b/drivers/net/ethernet/broadcom/asp2/bcmasp_ethtool.c
+@@ -1,7 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #define pr_fmt(fmt)				"bcmasp_ethtool: " fmt
+ 
+-#include <asm-generic/unaligned.h>
++#include <linux/unaligned.h>
+ #include <linux/ethtool.h>
+ #include <linux/netdevice.h>
+ #include <linux/platform_device.h>
+@@ -363,7 +363,7 @@
+ 	intf->eee.eee_active = enable;
+ }
+ 
+-static int bcmasp_get_eee(struct net_device *dev, struct ethtool_eee *e)
++static int bcmasp_get_eee(struct net_device *dev, struct ethtool_keee *e)
+ {
+ 	struct bcmasp_intf *intf = netdev_priv(dev);
+ 	struct ethtool_eee *p = &intf->eee;
+@@ -379,7 +379,7 @@
+ 	return phy_ethtool_get_eee(dev->phydev, e);
+ }
+ 
+-static int bcmasp_set_eee(struct net_device *dev, struct ethtool_eee *e)
++static int bcmasp_set_eee(struct net_device *dev, struct ethtool_keee *e)
+ {
+ 	struct bcmasp_intf *intf = netdev_priv(dev);
+ 	struct ethtool_eee *p = &intf->eee;
